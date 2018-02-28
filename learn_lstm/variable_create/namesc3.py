@@ -7,6 +7,8 @@ Created on Tue Feb 27 12:05:27 2018
 #共享变量，需要使用tf.variable_scope()
 import tensorflow as tf 
 
+tf.reset_default_graph()
+
 with tf.variable_scope('variable_scope_y') as scope:
     var1 = tf.get_variable(name='var1',shape=[1],dtype=tf.float32)
     scope.reuse_variables() #共享变量
