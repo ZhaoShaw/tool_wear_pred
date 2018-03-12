@@ -39,8 +39,9 @@ def calDiff(ret):
 if __name__ == "__main__":
     host = 'localhost'
     user = 'root'
-    password = 'password'
-    database = '408data'
-    tablename='A01_CCMT060204_EMF_01'
+    password = '***'
+    database = '***'
+    tablename='***'
     add_field_name='z_p_diff'
     addPositonDiff(host,user,password,database,tablename,add_field_name)
+#待拓展，需要手动改变字段XYZ
