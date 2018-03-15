@@ -9,9 +9,11 @@ import numpy as np
 import pandas as pd
 import pymysql
 import matplotlib.pyplot as plt
+from sqlalchemy import create_engine
 
 def conditionPlot (host,user,password,db,table_1,table_2):
     conn=pymysql.connect(host=host,user=user,password=password,db=db)
+    engine=create_engine("mysql+pymysql://root:password@localhost/408data")
     try:
         sql='select time,spindle_torque,spindle_actual_speed,x_p_diff,y_p_diff,z_p_diff from %s'%table_1
         df=pd.read_sql(sql,con=conn,index_col='time').astype(float)
@@ -28,6 +30,7 @@ def conditionPlot (host,user,password,db,table_1,table_2):
             l=l+[feedrate[i]]*rec_len[i][0]
         feed_con=pd.DataFrame(data=l,index=df.index,columns=['feed_rate'],dtype=np.float64)
         df1=pd.concat([df,feed_con],axis=1)
+        df1.to_sql(table_1+'_condition',engine)
         df1.plot(kind='line',figsize=(100,60))
     finally:
         conn.close()
